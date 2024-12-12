@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>Hola Mundo</h2>
+  <h3>{{ welcome }}</h3>
+  <ul>
+    <li *ngFor="let task of tasks">
+      {{ task }}
+    </li>
+  </ul>
+  <hr />
+  <h2>{{ 'hola'.repeat(4) }}</h2>
+  <hr />
+  <input type="text" [value]="name">
+  <input type="number" [value]="age">
+  <button [disabled]="disabled">Click Me</button>
+  <hr />
+  <img [src]="img" alt="">
+  <hr />
+  <p>Nombre: {{ person.name }}</p>
+  <p>Edad: {{ person.age }}</p>
+  <img [src]="person.avatar" alt="avatar">
+  <hr />
+  <button (click)="clickHandler()">Click me</button><br>
+  <button (dblclick)="clickHandler()">Double Click</button><hr />
+  <p>(change)</p>
+  <input type="number" [value]="age" (change)="changeHandler($event)">
+  <p>(keydown)</p>
+  <input type="text" [value]="name" (keydown)="kdownHandler($event)">
+  <p>(keydown)</p>
+  <input type="text" (keydown.enter)="clickHandler()">
+</div>
