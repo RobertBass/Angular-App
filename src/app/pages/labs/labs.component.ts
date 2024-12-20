@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {signal, Component, input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -15,7 +15,7 @@ export class LabsComponent {
     'Crear Componentes',
     'Crear Servicio'
   ];
-  name = 'Roberto';
+  name = signal('Roberto');
   age = 38;
   disabled = true;
   img = 'https://w3schools.com/howto/img_avatar.png';
@@ -26,13 +26,21 @@ export class LabsComponent {
     avatar: 'https://w3schools.com/howto/img_avatar.png'
   }
 
+  newTasks = signal([
+    'Instalar Angular',
+    'Crear Proyecto',
+    'Crear Componentes',
+    'Crear Servicio'
+  ]);
+
   clickHandler(){
     alert('Hola');
   }
 
   changeHandler(event: Event){
-    console.log(event);
-    console.log(event.target)
+    const inp = event.target as HTMLInputElement;
+    const newValue = inp.value;
+    this.name.set(newValue)
   }
 
   kdownHandler(event: KeyboardEvent){

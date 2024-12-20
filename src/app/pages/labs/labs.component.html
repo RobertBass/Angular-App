@@ -9,7 +9,7 @@
   <hr />
   <h2>{{ 'hola'.repeat(4) }}</h2>
   <hr />
-  <input type="text" [value]="name">
+  <input type="text" [value]="name()">
   <input type="number" [value]="age">
   <button [disabled]="disabled">Click Me</button>
   <hr />
@@ -24,7 +24,19 @@
   <p>(change)</p>
   <input type="number" [value]="age" (change)="changeHandler($event)">
   <p>(keydown)</p>
-  <input type="text" [value]="name" (keydown)="kdownHandler($event)">
+  <input type="text" [value]="name()" (keydown)="kdownHandler($event)">
   <p>(keydown)</p>
   <input type="text" (keydown.enter)="clickHandler()">
+  <h1>Signal</h1>
+  <input type="text" [value]="name()" (change)="changeHandler($event)">
+  <p>Name: {{ name() }}</p>
+  <h1>New List with Signal</h1>
+  <ul>
+    <p>Total of Tasks: {{ newTasks().length }}</p>
+    <li *ngFor="let task of newTasks(); index as i">
+      {{ i+1 }} {{ task }}
+    </li>
+  </ul>
+
+
 </div>
