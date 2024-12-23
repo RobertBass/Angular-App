@@ -28,8 +28,8 @@
   <p>(keydown)</p>
   <input type="text" (keydown.enter)="clickHandler()">
   <h1>Signal</h1>
-  <input type="text" [value]="name()" (change)="changeHandler($event)">
-  <p>Name: {{ name() }}</p>
+  <input type="text" [value]="person.name" (change)="changeHandler($event)">
+  <p>Name: {{ person.name }}</p>
   <h1>New List with Signal</h1>
   <ul>
     <p>Total of Tasks: {{ newTasks().length }}</p>
@@ -37,6 +37,20 @@
       {{ i+1 }} {{ task }}
     </li>
   </ul>
+  <hr />
+  <div [ngSwitch]="person.name">
+    <p *ngSwitchCase="'Roberto'">Hola, soy Roberto</p>
+    <p *ngSwitchCase="'Evelyn'">Hola, soy Evelyn</p>
+    <p *ngSwitchCase="'Bruno'">Hola, soy Bruno</p>
+    <p *ngSwitchCase="'Emilio'">Hola, soy Emilio</p>
+    <p *ngSwitchCase="'Nicolas'">Hola, soy Nicolas</p>
+    <p *ngSwitchCase="'Emma'">Hola, soy Emma</p>
+    <p *ngSwitchDefault>No soy nadie</p>
+  </div>
+
+  <hr />
+  <input type="color" [formControl]="colorCtr">
+  <p>Color: {{ colorCtr.value }}</p>
 
 
 </div>

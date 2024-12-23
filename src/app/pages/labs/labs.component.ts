@@ -1,9 +1,10 @@
 import {signal, Component, input} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-labs',
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './labs.component.html',
   styleUrl: './labs.component.css'
 })
@@ -33,6 +34,8 @@ export class LabsComponent {
     'Crear Servicio'
   ]);
 
+  colorCtr = new FormControl();
+
   clickHandler(){
     alert('Hola');
   }
@@ -41,6 +44,7 @@ export class LabsComponent {
     const inp = event.target as HTMLInputElement;
     const newValue = inp.value;
     this.name.set(newValue)
+    this.person.name = newValue;
   }
 
   kdownHandler(event: KeyboardEvent){
