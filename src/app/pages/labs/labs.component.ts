@@ -22,8 +22,8 @@ export class LabsComponent {
   img = 'https://w3schools.com/howto/img_avatar.png';
 
   person = {
-    name : 'Roberto',
-    age : 38,
+    name : 'Robert',
+    age : 19,
     avatar: 'https://w3schools.com/howto/img_avatar.png'
   }
 

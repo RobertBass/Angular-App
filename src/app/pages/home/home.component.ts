@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, computed, effect, inject, Injector, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task } from "../../models/task.model"
 
@@ -10,28 +10,19 @@ import { Task } from "../../models/task.model"
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  tasks = signal<Task[]>([
-    {
-      id: Date.now(),
-      title: "Instalar Angular",
-      completed: false
-    },
-    {
-      id: Date.now(),
-      title: "Crear Proyecto",
-      completed: false
-    },
-    {
-      id: Date.now(),
-      title: "Crear Componentes",
-      completed: false
-    },
-    {
-      id: Date.now(),
-      title: "Crear Servicios",
-      completed: false
-    },
-  ]);
+  filter = signal<'all' | 'pending' | 'completed'>('all');
+  tasks = signal<Task[]>([]);
+  tasksByFilter = computed(() => {
+    const filter = this.filter();
+    const tasks = this.tasks();
+    if (filter === 'pending') {
+      return tasks.filter(task => !task.completed);
+    }
+    if (filter === 'completed') {
+      return tasks.filter(task => task.completed);
+    }
+    return tasks;
+  })
 
   newTaskCtr = new FormControl('', {
     nonNullable: true,
@@ -39,6 +30,24 @@ export class HomeComponent {
       Validators.required
     ]
   });
+
+  injector = inject(Injector);
+
+  ngOnInit(){
+    const storage = localStorage.getItem('tasks');
+    if(storage){
+      const tasks = JSON.parse(storage);
+      this.tasks.set(tasks);
+    }
+    this.trackTasks();
+  }
+
+  trackTasks(){
+    effect(() => {
+      const tasks = this.tasks();
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }, { injector: this.injector});
+  }
 
   addTask(title: string){
     const newtask = {
@@ -113,5 +122,9 @@ export class HomeComponent {
         };
       })
     })
+  }
+
+  changeFilter(filter: 'all' | 'pending' | 'completed') {
+    this.filter.set(filter);
   }
 }

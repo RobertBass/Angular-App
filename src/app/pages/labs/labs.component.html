@@ -31,11 +31,30 @@
   <input type="text" [value]="person.name" (change)="changeHandler($event)">
   <p>Name: {{ person.name }}</p>
   <h1>New List with Signal</h1>
+  @if(person.name === 'Roberto'){
+    @if(person.age > 18){
+      <p>Hola, soy Roberto y soy mayor de edad</p>
+    }
+    @else {
+      <p>Hola, soy Roberto y soy menor de edad</p>
+    }
+
+  }
+  @else {
+    <p>Hola, no existo</p>
+  }
   <ul>
     <p>Total of Tasks: {{ newTasks().length }}</p>
     <li *ngFor="let task of newTasks(); index as i">
       {{ i+1 }} {{ task }}
     </li>
+  </ul>
+  <ul>
+    @for(task of newTasks(); track task; let i = $index ){
+      <li>{{ i }} {{ task }}</li>
+    } @empty {
+      <li><strong>La lista esta vacia</strong></li>
+    }
   </ul>
   <hr />
   <div [ngSwitch]="person.name">
@@ -47,7 +66,29 @@
     <p *ngSwitchCase="'Emma'">Hola, soy Emma</p>
     <p *ngSwitchDefault>No soy nadie</p>
   </div>
-
+  @switch (person.name) {
+    @case('Roberto'){
+      <p>Hola, soy Roberto</p>
+    }
+    @case('Evelyn'){
+      <p>Hola, soy Evelyn</p>
+    }
+    @case('Bruno'){
+      <p>Hola, soy Bruno</p>
+    }
+    @case('Emilio'){
+      <p>Hola, soy Emilio</p>
+    }
+    @case('Nicolas'){
+      <p>Hola, soy Nicolas</p>
+    }
+    @case('Emma'){
+      <p>Hola, soy Emma</p>
+    }
+    @default {
+      <p>Hola, no existo</p>
+    }
+  }
   <hr />
   <input type="color" [formControl]="colorCtr">
   <p>Color: {{ colorCtr.value }}</p>
