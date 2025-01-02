@@ -2,9 +2,11 @@
   <h2>Hola Mundo</h2>
   <h3>{{ welcome }}</h3>
   <ul>
-    <li *ngFor="let task of tasks">
-      {{ task }}
-    </li>
+    @for (task of tasks; track task) {
+      <li>
+        {{ task }}
+      </li>
+    }
   </ul>
   <hr />
   <h2>{{ 'hola'.repeat(4) }}</h2>
@@ -36,62 +38,80 @@
       <p>Hola, soy Roberto y soy mayor de edad</p>
     }
     @else {
-      <p>Hola, soy Roberto y soy menor de edad</p>
-    }
+    <p>Hola, soy Roberto y soy menor de edad</p>
+  }
 
-  }
-  @else {
-    <p>Hola, no existo</p>
-  }
-  <ul>
-    <p>Total of Tasks: {{ newTasks().length }}</p>
-    <li *ngFor="let task of newTasks(); index as i">
+}
+@else {
+<p>Hola, no existo</p>
+}
+<ul>
+  <p>Total of Tasks: {{ newTasks().length }}</p>
+  @for (task of newTasks(); track task; let i = $index) {
+    <li>
       {{ i+1 }} {{ task }}
     </li>
-  </ul>
-  <ul>
-    @for(task of newTasks(); track task; let i = $index ){
-      <li>{{ i }} {{ task }}</li>
+  }
+</ul>
+<ul>
+  @for(task of newTasks(); track task; let i = $index ){
+    <li>{{ i }} {{ task }}</li>
     } @empty {
-      <li><strong>La lista esta vacia</strong></li>
-    }
-  </ul>
-  <hr />
-  <div [ngSwitch]="person.name">
-    <p *ngSwitchCase="'Roberto'">Hola, soy Roberto</p>
-    <p *ngSwitchCase="'Evelyn'">Hola, soy Evelyn</p>
-    <p *ngSwitchCase="'Bruno'">Hola, soy Bruno</p>
-    <p *ngSwitchCase="'Emilio'">Hola, soy Emilio</p>
-    <p *ngSwitchCase="'Nicolas'">Hola, soy Nicolas</p>
-    <p *ngSwitchCase="'Emma'">Hola, soy Emma</p>
-    <p *ngSwitchDefault>No soy nadie</p>
-  </div>
+    <li><strong>La lista esta vacia</strong></li>
+  }
+</ul>
+<hr />
+<div>
   @switch (person.name) {
-    @case('Roberto'){
+    @case ('Roberto') {
       <p>Hola, soy Roberto</p>
     }
-    @case('Evelyn'){
+    @case ('Evelyn') {
       <p>Hola, soy Evelyn</p>
     }
-    @case('Bruno'){
+    @case ('Bruno') {
       <p>Hola, soy Bruno</p>
     }
-    @case('Emilio'){
+    @case ('Emilio') {
       <p>Hola, soy Emilio</p>
     }
-    @case('Nicolas'){
+    @case ('Nicolas') {
       <p>Hola, soy Nicolas</p>
     }
-    @case('Emma'){
+    @case ('Emma') {
       <p>Hola, soy Emma</p>
     }
     @default {
-      <p>Hola, no existo</p>
+      <p>No soy nadie</p>
     }
   }
-  <hr />
-  <input type="color" [formControl]="colorCtr">
-  <p>Color: {{ colorCtr.value }}</p>
+</div>
+@switch (person.name) {
+  @case('Roberto'){
+    <p>Hola, soy Roberto</p>
+  }
+  @case('Evelyn'){
+    <p>Hola, soy Evelyn</p>
+  }
+  @case('Bruno'){
+    <p>Hola, soy Bruno</p>
+  }
+  @case('Emilio'){
+    <p>Hola, soy Emilio</p>
+  }
+  @case('Nicolas'){
+    <p>Hola, soy Nicolas</p>
+  }
+  @case('Emma'){
+    <p>Hola, soy Emma</p>
+  }
+  @default {
+    <p>Hola, no existo</p>
+  }
+}
+<hr />
+<input type="color" [formControl]="colorCtr">
+<p>Color: {{ colorCtr.value }}</p>
 
 
 </div>
